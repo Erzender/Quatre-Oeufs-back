@@ -1,1 +1,7 @@
-console.log("we do work");
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV !== "production") {
+  dotenv.load();
+}
+
+console.log(process.env.FOO);
