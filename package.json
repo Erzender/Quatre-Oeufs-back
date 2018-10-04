@@ -1,0 +1,30 @@
+{
+  "name": "quatre-oeufs-back",
+  "version": "1.0.0",
+  "description": "The backend code for Quatre Oeufs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Erzender/Quatre-Oeufs-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Erzender/Quatre-Oeufs-back/issues"
+  },
+  "homepage": "https://github.com/Erzender/Quatre-Oeufs-back#readme",
+  "dependencies": {
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1"
+  }
+}
