@@ -29,7 +29,7 @@ const ChatMessage = db.sequelize.define("chatmessage", {
 });
 
 Player.hasOne(Character);
-Player.belongsTo(Group);
+Character.belongsTo(Group);
 Group.hasMany(Character);
 Group.hasOne(ChatRoom);
 ChatRoom.hasMany(ChatMessage);
