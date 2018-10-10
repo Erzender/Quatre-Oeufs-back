@@ -5,7 +5,7 @@ const db = {
   database: process.env.DB || "database",
   username: process.env.DB_USERNAME || "username",
   password: process.env.DB_PASSWORD || "password",
-  host: process.env.DATABASE_URL || "localhost",
+  host: process.env.DATABASE_HOST || "localhost",
   port: process.env.DATABASE_PORT || "3000"
 };
 
