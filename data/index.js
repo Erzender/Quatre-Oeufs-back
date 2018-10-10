@@ -1,6 +1,9 @@
-const sequelize = require("./_init");
+const Sequelize = require("sequelize");
+const db = require("./_init");
 
-const User = sequelize.define("user", {
+const User = db.sequelize.define("user", {
   username: Sequelize.STRING,
   birthday: Sequelize.DATE
 });
+
+exports.User = User;

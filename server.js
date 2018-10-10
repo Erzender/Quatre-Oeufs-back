@@ -1,12 +1,13 @@
 const dotenv = require("dotenv");
-const data = require("./data/_init");
+const data = require("./data");
+const db = require("./data/_init")
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.load();
 }
 
-sequelize.sync()
-  .then(() => User.create({
+db.sequelize.sync()
+  .then(() => data.User.create({
     username: 'janedoe',
     birthday: new Date(1980, 6, 20)
   }))
