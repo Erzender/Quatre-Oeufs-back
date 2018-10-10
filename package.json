@@ -22,7 +22,8 @@
   "homepage": "https://github.com/Erzender/Quatre-Oeufs-back#readme",
   "dependencies": {
     "dotenv": "^6.0.0",
-    "sequelize": "^4.39.0"
+    "sequelize": "^4.39.0",
+    "sqlite3": "^4.0.2"
   },
   "devDependencies": {}
 }
