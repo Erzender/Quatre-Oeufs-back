@@ -1,3 +1,4 @@
+require("dotenv").load();
 const Sequelize = require("sequelize");
 const db = {
   type: process.env.DB_TYPE || "sqlite",
@@ -10,7 +11,8 @@ const db = {
 };
 
 exports.sequelize = new Sequelize(db.database, db.username, db.password, {
-  host: "localhost",
+  host: db.host,
+  port: db.port,
   dialect: db.type,
 
   pool: {
