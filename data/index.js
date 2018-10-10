@@ -23,9 +23,7 @@ const ChatMessage = db.sequelize.define("chatmessage", {
   gm_mode: Sequelize.BOOLEAN,
   content: Sequelize.TEXT,
   blocking: Sequelize.BOOLEAN,
-  published: Sequelize.DATE,
-  authorId: Sequelize.STRING,
-  authorCharacterId: Sequelize.STRING
+  published: Sequelize.DATE
 });
 
 Player.hasOne(Character);
@@ -34,6 +32,8 @@ Group.hasMany(Character);
 Group.hasOne(ChatRoom);
 ChatRoom.hasMany(ChatMessage);
 ChatMessage.belongsTo(ChatRoom);
+ChatMessage.belongsTo(Player);
+ChatMessage.belongsTo(Character);
 
 exports.Player = Player;
 exports.Character = Character;
