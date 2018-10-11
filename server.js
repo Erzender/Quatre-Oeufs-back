@@ -1,20 +1,11 @@
-const data = require("./data");
 const db = require("./data/_init");
+const data = require("./data");
 const express = require("express");
 require("dotenv").load();
 
-const app = express()
+const app = express();
 
-db.sequelize
-  .sync()
-  .then(() =>
-    data.Player.create({
-      password: "lol",
-      rank: "admin"
-    })
-  )
-  .then(jane => {
-    console.log(jane.toJSON());
-  });
-
-app.listen(process.env.PORT || 8080)
+db.sequelize.sync().then(() => {
+  data.player.newPlayer("1234", "admin").then(id => console.log(id));
+  app.listen(process.env.PORT || 8080);
+});
