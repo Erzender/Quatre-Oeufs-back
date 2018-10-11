@@ -6,6 +6,7 @@ require("dotenv").load();
 const app = express();
 
 db.sequelize.sync().then(() => {
-  data.player.newPlayer("1234", "admin").then(id => console.log(id));
+  data.player.listPlayers().then(players => console.log(players));
+
   app.listen(process.env.PORT || 8080);
 });
