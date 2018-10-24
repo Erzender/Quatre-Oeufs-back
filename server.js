@@ -6,17 +6,13 @@ require("dotenv").load();
 const app = express();
 
 db.sequelize.sync().then(() => {
-	data.player
-		.newPlayer("lel")
-		.then(
-			data.player
-				.listPlayers()
-				.then(players =>
-					data.character
-						.addPlayerCharacter(players[0].id, "Gandalf")
-						.then(character => console.log(character))
-				)
+	data.character
+		.listCharacters()
+		.then(characters =>
+			data.group.newGroupWithCharacters(
+				"group 1",
+				characters.map(character => character.id)
+			)
 		);
-
 	app.listen(process.env.PORT || 8080);
 });
