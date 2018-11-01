@@ -31,6 +31,6 @@ const getPlayer = async id => {
 	return player.dataValues;
 };
 
-exports.newPlayer = newPlayer;
-exports.listPlayers = listPlayers;
-exports.getPlayer = getPlayer;
+exports.new = newPlayer;
+exports.list = listPlayers;
+exports.get = getPlayer;

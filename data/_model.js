@@ -17,7 +17,7 @@ const Group = db.sequelize.define("group", {
 	name: { type: Sequelize.STRING, unique: true }
 });
 
-const ChatRoom = db.sequelize.define("chatroom", {});
+const Chatroom = db.sequelize.define("chatroom", {});
 
 const ChatMessage = db.sequelize.define("chatmessage", {
 	gm_mode: Sequelize.BOOLEAN,
@@ -30,15 +30,15 @@ Player.hasOne(Character);
 Character.belongsTo(Player);
 Character.belongsTo(Group);
 Group.hasMany(Character);
-Group.hasOne(ChatRoom);
-ChatRoom.belongsTo(Group);
-ChatRoom.hasMany(ChatMessage);
-ChatMessage.belongsTo(ChatRoom);
+Group.hasOne(Chatroom);
+Chatroom.belongsTo(Group);
+Chatroom.hasMany(ChatMessage);
+ChatMessage.belongsTo(Chatroom);
 ChatMessage.belongsTo(Player);
 ChatMessage.belongsTo(Character);
 
 exports.Player = Player;
 exports.Character = Character;
 exports.Group = Group;
-exports.ChatRoom = ChatRoom;
+exports.Chatroom = Chatroom;
 exports.ChatMessage = ChatMessage;

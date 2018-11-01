@@ -9,7 +9,8 @@ const newGroup = async name => {
 	} catch (err) {
 		throw err;
 	}
-
+	var chatRoom = await data.Chatroom.create();
+	group.setChatroom(chatRoom);
 	return group ? group.dataValues : null;
 };
 
@@ -23,6 +24,8 @@ const newGroupWithCharacters = async (name, characterIds) => {
 		var group = await data.Group.create({
 			name: name
 		});
+		var chatRoom = await data.Chatroom.create();
+		group.setChatroom(chatRoom);
 		for (var character of characters) {
 			character.setGroup(group);
 		}
@@ -50,13 +53,17 @@ const addCharacterToGroup = async (characterId, groupId) => {
 	} catch (err) {
 		throw err;
 	}
-	return group ? group.dataValues: null;
+	return group ? group.dataValues : null;
 };
 
 const deleteGroup = async groupId => {
 	try {
 		var group = await data.Group.findById(groupId);
-		group.destroy();
+		var chatRoom = await group.getChatRoom;
+		if (chatRoom) {
+			await chatRoom.destroy();
+		}
+		await group.destroy();
 	} catch (err) {
 		throw err;
 	}
@@ -82,10 +89,10 @@ const getCharacterGroup = async characterId => {
 	return group ? group.dataValues : null;
 };
 
-exports.newGroup = newGroup;
-exports.newGroupWithCharacters = newGroupWithCharacters;
-exports.listGroupCharacters = listGroupCharacters;
-exports.addCharacterToGroup = addCharacterToGroup;
-exports.deleteGroup = deleteGroup;
-exports.listGroups = listGroups;
-exports.getCharacterGroup = getCharacterGroup;
+exports.new = newGroup;
+exports.newWithCharacters = newGroupWithCharacters;
+exports.listCharacters = listGroupCharacters;
+exports.addCharacter = addCharacterToGroup;
+exports.delete = deleteGroup;
+exports.list = listGroups;
+exports.get = getCharacterGroup;

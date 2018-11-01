@@ -57,8 +57,8 @@ const listNPCs = async () => {
 	return characters.map(character => character.dataValues);
 };
 
-exports.newCharacter = newCharacter;
+exports.new = newCharacter;
 exports.addPlayerCharacter = addPlayerCharacter;
-exports.listCharacters = listCharacters;
+exports.list = listCharacters;
 exports.listPlayerCharacters = listPlayerCharacters;
 exports.listNPCs = listNPCs;
