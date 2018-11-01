@@ -28,7 +28,7 @@ const getPlayer = async id => {
 	} catch (err) {
 		throw err;
 	}
-	return player.dataValues;
+	return player ? player.dataValues : null;
 };
 
 exports.new = newPlayer;

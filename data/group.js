@@ -6,11 +6,11 @@ const newGroup = async name => {
 		var group = await data.Group.create({
 			name: name
 		});
+		var chatRoom = await data.Chatroom.create();
+		await group.setChatroom(chatRoom);
 	} catch (err) {
 		throw err;
 	}
-	var chatRoom = await data.Chatroom.create();
-	group.setChatroom(chatRoom);
 	return group ? group.dataValues : null;
 };
 
@@ -25,7 +25,7 @@ const newGroupWithCharacters = async (name, characterIds) => {
 			name: name
 		});
 		var chatRoom = await data.Chatroom.create();
-		group.setChatroom(chatRoom);
+		await group.setChatroom(chatRoom);
 		for (var character of characters) {
 			character.setGroup(group);
 		}

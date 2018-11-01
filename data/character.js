@@ -8,7 +8,7 @@ var newCharacter = async name => {
 		throw err;
 	}
 
-	return character.dataValues;
+	return character ? character.dataValues: null;
 };
 
 const addPlayerCharacter = async (playerId, characterName) => {
@@ -23,7 +23,7 @@ const addPlayerCharacter = async (playerId, characterName) => {
 	} catch (err) {
 		throw err;
 	}
-	return character.dataValues;
+	return character ? character.dataValues : null;
 };
 
 const listCharacters = async () => {
