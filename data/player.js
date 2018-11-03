@@ -31,6 +31,17 @@ const getPlayer = async id => {
 	return player ? player.dataValues : null;
 };
 
+const getByCharacter = async name => {
+	try {
+		var character = await data.Character.findByPrimary(name);
+		var player = await character.getPlayer();
+	} catch (err) {
+		throw err;
+	}
+	return player ? player.dataValues : null;
+};
+
 exports.new = newPlayer;
 exports.list = listPlayers;
 exports.get = getPlayer;
+exports.getByCharacter = getByCharacter;

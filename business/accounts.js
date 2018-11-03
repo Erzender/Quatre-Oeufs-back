@@ -23,4 +23,38 @@ const createAccount = async (characterFields, password) => {
 	return { success: true };
 };
 
+const login = async fields => {
+	if (!fields.name || !fields.password) {
+		return { error: errors.missing_parameters };
+	}
+	try {
+		var player = await data.player.getByCharacter(fields.name);
+		if (player === null) {
+			return { error: errors.wrong_character };
+		}
+		var compare = await bcrypt.compare(fields.password, player.password);
+	} catch (err) {
+		console.error(err);
+		return { error: errors.internal_error };
+	}
+	if (!compare) {
+		return { error: errors.wrong_password };
+	}
+	return { success: true };
+};
+
+const listCharacters = async () => {
+	try {
+		var characters = await data.character.listPlayerCharacters();
+	} catch (err) {
+		return { error: errors.internal_error };
+	}
+	return {
+		success: true,
+		characters: characters.map(character => character.name)
+	};
+};
+
 exports.createAccount = createAccount;
+exports.login = login;
+exports.listCharacters = listCharacters;

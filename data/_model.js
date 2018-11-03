@@ -9,7 +9,12 @@ const Player = db.sequelize.define("player", {
 });
 
 const Character = db.sequelize.define("character", {
-	name: { type: Sequelize.STRING, unique: true, allowNull: false },
+	name: {
+		type: Sequelize.STRING,
+		unique: true,
+		allowNull: false,
+		primaryKey: true
+	},
 	picture: Sequelize.STRING
 });
 
