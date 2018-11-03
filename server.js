@@ -1,9 +1,13 @@
 const db = require("./data/_init");
 const express = require("express");
 const business = require("./business");
+const bodyParser = require("body-parser");
+const api = require("./presentation/api");
 require("dotenv").load();
 
 const app = express();
+app.use(bodyParser.json());
+app.set("superSecret", process.env.SECRET || "very unsafe secret");
 
 // api routes
 
@@ -12,6 +16,9 @@ var apiRoutes = express.Router();
 apiRoutes.get("/", (req, res) => {
 	res.send("Welcome to the api");
 });
+apiRoutes.post("/authentication", api.accounts.login);
+apiRoutes.get("/playable-characters", api.accounts.playableCharacters);
+apiRoutes.post("/account", api.accounts.register);
 
 // main routes
 

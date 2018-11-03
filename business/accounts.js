@@ -40,7 +40,7 @@ const login = async fields => {
 	if (!compare) {
 		return { error: errors.wrong_password };
 	}
-	return { success: true };
+	return { success: true, id: player.id };
 };
 
 const listCharacters = async () => {

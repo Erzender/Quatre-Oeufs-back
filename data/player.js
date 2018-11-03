@@ -34,6 +34,9 @@ const getPlayer = async id => {
 const getByCharacter = async name => {
 	try {
 		var character = await data.Character.findByPrimary(name);
+		if (character === null) {
+			return null;
+		}
 		var player = await character.getPlayer();
 	} catch (err) {
 		throw err;
