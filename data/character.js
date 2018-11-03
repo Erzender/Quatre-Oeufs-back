@@ -19,7 +19,7 @@ const addPlayerCharacter = async (playerId, characterName) => {
 	}
 	try {
 		var character = await data.Character.create({ name: characterName });
-		player.setCharacter(character);
+		await player.setCharacter(character);
 	} catch (err) {
 		throw err;
 	}
