@@ -12,6 +12,8 @@ const status = (res, err) => {
 	case errors.unsafe_password:
 	case errors.wrong_password:
 	case errors.forbidden:
+	case errors.no_token:
+	case errors.invalid_token:
 		return res.status(403).send(err);
 	case errors.wrong_character:
 		return res.status(422).send(err);
