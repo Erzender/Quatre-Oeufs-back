@@ -67,7 +67,7 @@ const editProfile = async (
 	}
 	try {
 		var player = await data.player.get(idRequesting);
-		if ((idRequested !== idRequesting || rank) && player.rank !== ranks.admin) {
+		if ((idRequested != idRequesting || rank) && player.rank !== ranks.admin) {
 			return { error: errors.forbidden };
 		}
 		if (rank && !ranks[rank]) {
@@ -97,7 +97,34 @@ const editProfile = async (
 	return { success: true };
 };
 
+const getProfile = async (idRequesting, idRequested) => {
+	try {
+		var player = await data.player.get(idRequesting);
+		if (idRequested != idRequesting && player.rank !== ranks.admin) {
+			return { error: errors.forbidden };
+		}
+		if (idRequested != idRequesting) {
+			player = await data.player.get(idRequested);
+		}
+		var ret = {
+			gmName: player.player.name,
+			gmPicture: player.player.gmPicture,
+			rank: player.player.rank,
+			id: player.player.id
+		};
+		if (player.character) {
+			ret.charName = player.character.name;
+			ret.charPicture = player.character.picture;
+		}
+	} catch (err) {
+		console.error(err);
+		return { error: errors.internal_error };
+	}
+	return { success: true, player: ret };
+};
+
 exports.createAccount = createAccount;
 exports.login = login;
 exports.listCharacters = listCharacters;
 exports.edit = editProfile;
+exports.get = getProfile;

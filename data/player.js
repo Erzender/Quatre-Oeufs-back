@@ -52,10 +52,17 @@ const listPlayers = async () => {
 const getPlayer = async id => {
 	try {
 		var player = await data.Player.findById(id);
+		if (player) {
+			var character = await player.getCharacter();
+		}
 	} catch (err) {
 		throw err;
 	}
-	return player ? player.dataValues : null;
+	return player
+		? character
+			? { player: player.dataValues, character: character.dataValues }
+			: { player: player.dataValues }
+		: null;
 };
 
 const getByCharacter = async name => {

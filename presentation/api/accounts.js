@@ -77,8 +77,20 @@ const editProfile = async (req, res) => {
 	return res.json({ success: true });
 };
 
+const getProfile = async (req, res) => {
+	var ret = await business.accounts.get(
+		req.decoded.id,
+		req.headers["id"] || req.query["id"] || req.decoded.id
+	);
+	if (!ret.success) {
+		return error.status(res, ret.error);
+	}
+	return res.json({ success: true, player: ret });
+};
+
 exports.login = login;
 exports.playableCharacters = playableCharacters;
 exports.register = register;
 exports.editProfile = editProfile;
 exports.tokenValidation = tokenValidation;
+exports.get = getProfile;

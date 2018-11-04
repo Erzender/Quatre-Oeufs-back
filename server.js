@@ -25,6 +25,7 @@ apiRoutes.post("/account", api.accounts.register);
 apiRoutes.use(api.accounts.tokenValidation);
 
 apiRoutes.patch("/account", api.accounts.editProfile);
+apiRoutes.get("/account", api.accounts.get);
 
 // main routes
 
