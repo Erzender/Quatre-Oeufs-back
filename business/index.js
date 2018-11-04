@@ -1,3 +1,2 @@
-const accounts = require("./accounts");
-
-exports.accounts = accounts;
+exports.accounts = require("./accounts");
+exports.characters = require("./characters");

@@ -4,3 +4,7 @@ exports.internal_error = "internal_error";
 exports.unavailable_name = "unavailable_name";
 exports.wrong_character = "wrong_character";
 exports.wrong_password = "wrong_password";
+exports.forbidden = "forbidden";
+exports.invalid_parameter = "invalid_parameter";
+exports.invalid_token = "invalid_token";
+exports.no_token = "no_token";

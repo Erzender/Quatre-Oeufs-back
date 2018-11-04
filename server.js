@@ -1,7 +1,9 @@
 const db = require("./data/_init");
 const express = require("express");
-const business = require("./business");
 const bodyParser = require("body-parser");
+const business = require("./business");
+const data = require("./data");
+const ranks = require("./_enums").ranks;
 const api = require("./presentation/api");
 require("dotenv").load();
 
@@ -20,6 +22,10 @@ apiRoutes.post("/authentication", api.accounts.login);
 apiRoutes.get("/playable-characters", api.accounts.playableCharacters);
 apiRoutes.post("/account", api.accounts.register);
 
+apiRoutes.use(api.accounts.tokenValidation);
+
+apiRoutes.patch("/account", api.accounts.editProfile);
+
 // main routes
 
 app.use("/api", apiRoutes);
@@ -33,7 +39,7 @@ app.get("*", function(req, res) {
 // launch
 
 const serve = async () => {
-	var res = await business.accounts.listCharacters();
+	var res = await data.player.edit(1, { gmName: "loul", charName: "Marcel" });
 	console.log(res);
 };
 

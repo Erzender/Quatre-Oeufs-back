@@ -1,16 +1,43 @@
+const ranks = require("../_enums").ranks;
 const data = require("./_model");
 
 const newPlayer = async password => {
 	try {
 		var player = await data.Player.create({
 			password: password,
-			rank: "player"
+			rank: ranks.player
 		});
 	} catch (err) {
 		throw err;
 	}
 
 	return player.id;
+};
+
+const editPlayer = async (
+	id,
+	{ gmName, password, rank, gmPicture, charName, charPicture }
+) => {
+	try {
+		var player = await data.Player.findById(id);
+		await player.update({
+			gm_name: gmName || player.gm_name,
+			password: password || player.password,
+			rank: rank || player.rank,
+			gm_picture: gmPicture || player.gm_picture
+		});
+		var character = await player.getCharacter();
+		if (!character) {
+			return player.dataValues;
+		}
+		await character.update({
+			name: charName || character.name,
+			picture: charPicture || character.picture
+		});
+	} catch (err) {
+		throw err;
+	}
+	return player.dataValues;
 };
 
 const listPlayers = async () => {
@@ -33,7 +60,7 @@ const getPlayer = async id => {
 
 const getByCharacter = async name => {
 	try {
-		var character = await data.Character.findByPrimary(name);
+		var character = await data.Character.findOne({ where: { name: name } });
 		if (character === null) {
 			return null;
 		}
@@ -48,3 +75,4 @@ exports.new = newPlayer;
 exports.list = listPlayers;
 exports.get = getPlayer;
 exports.getByCharacter = getByCharacter;
+exports.edit = editPlayer;

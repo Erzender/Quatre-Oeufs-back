@@ -12,8 +12,7 @@ const Character = db.sequelize.define("character", {
 	name: {
 		type: Sequelize.STRING,
 		unique: true,
-		allowNull: false,
-		primaryKey: true
+		allowNull: false
 	},
 	picture: Sequelize.STRING
 });

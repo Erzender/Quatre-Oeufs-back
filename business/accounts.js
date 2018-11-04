@@ -1,6 +1,7 @@
 const data = require("../data");
 const bcrypt = require("bcrypt");
 const errors = require("./_errors");
+const ranks = require("../_enums").ranks;
 
 const createAccount = async (characterFields, password) => {
 	if (!password || !characterFields.name) {
@@ -51,10 +52,52 @@ const listCharacters = async () => {
 	}
 	return {
 		success: true,
-		characters: characters.map(character => character.name)
+		characters: characters.map(character => character.name).sort()
 	};
+};
+
+const editProfile = async (
+	idRequesting,
+	idRequested,
+	{ gmName, gmPicture, rank, newPassword, charName, charPicture },
+	password
+) => {
+	if (newPassword && !password) {
+		return { error: errors.forbidden };
+	}
+	try {
+		var player = await data.player.get(idRequesting);
+		if ((idRequested !== idRequesting || rank) && player.rank !== ranks.admin) {
+			return { error: errors.forbidden };
+		}
+		if (rank && !ranks[rank]) {
+			return { error: errors.invalid_parameter };
+		}
+		if (newPassword && !(await bcrypt.compare(password, player.password))) {
+			return { error: errors.wrong_password };
+		}
+		if ((gmName || gmPicture) && rank !== ranks.gm && rank != ranks.admin) {
+			return { error: errors.forbidden };
+		}
+		await data.player.edit(idRequested, {
+			gm_name: gmName,
+			gm_picture: gmPicture,
+			rank: rank,
+			password: newPassword,
+			charName: charName,
+			charPicture: charPicture
+		});
+	} catch (err) {
+		if (err.name === "SequelizeUniqueConstraintError") {
+			return { error: errors.unavailable_name };
+		}
+		console.error(err);
+		return { error: errors.internal_error };
+	}
+	return { success: true };
 };
 
 exports.createAccount = createAccount;
 exports.login = login;
 exports.listCharacters = listCharacters;
+exports.edit = editProfile;
